@@ -3,6 +3,7 @@ package kr.hs.emirim.s2019w39.toastlocation;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                     break;
                 case R.id.btn_dialog:
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+                    //getApplicationContext 사용하면 안됨.
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                     dialog.setTitle("알림사항");
                     dialog.setMessage("코로나 학진자 진행상황입니다.");
                     dialog.setIcon(R.mipmap.ic_flower2);
-                    dialog.setPositiveButton("확인", null);
+                    dialog.setPositiveButton("확인", dialogListener);
                     dialog.show();
             }
         }
@@ -52,4 +54,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
+
+    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Toast.makeText(MainActivity.this, "대화상자의 확인 버튼을 클릭했네요.", Toast.LENGTH_SHORT).show();
+        }
+    };
 }
